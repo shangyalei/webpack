@@ -1,0 +1,151 @@
+React是创建一虚拟dom，这个dom不是页面中真正的dom元素。
+实质上是一个js对象。
+用js对象存储dom上的信息，因此比真实的dom小的多，因为它
+只记录一些必要的信息
+操作一个虚拟dom需要的性能要远小于操作一个真实的dom需要的性能
+在前端开发一个web应用与开发一个网站不同，web应用通常是一个单页面的，
+因此每次做一些交互会涉及dom操作，因此无节制的操作dom严重影响了页面的性能
+如果我们只操作这些虚拟dom,此时会很好的降低对性能的消耗
+在必要的时候将这些需要改变视图渲染到页面中会优化这些性能问题
+
+React在性能上做了两点：
+    一点是渲染时性能优化(重要就是虚拟dom)
+    第二点就是开发式的优化，React的理念有了虚拟dom，
+    因此不需要依赖于某个端，因此它的理念就是一次开发，处处使用
+
+    如何将虚拟dom渲染到某个端上就需要引入不同的创建，调用不同的render方法
+    本套课程讨论的是浏览器端，所以需要两个库
+
+    React库，主要用来创建虚拟dom
+    React-dom库，将虚拟dom渲染到浏览器上
+
+
+    React对象上有个createElement方法
+    用来创建虚拟dom
+    参数1 虚拟dom的名称  任意一个元素的名称
+    参数2 虚拟dom的属性  对象类型
+    参数3 虚拟dom的子元素  从第三个参数开始，表示虚拟dom中所有子元素。定义文本节点我们可以直接写，不用createElement()方法，返回值是虚拟dom
+
+
+    React-dom中的render方法
+    是将虚拟dom渲染到页面中的一个方法
+
+    参数1：表示虚拟dom
+    参数2：表示真实dom容器元素
+    参数3：回调函数，一般没什么用
+
+    如果一个虚拟dom复用多次，通常将它封装在一个组件中
+
+    创建组件的方法是createClass
+        参数是一个对象，对象中的属性和方法是对组件的说明
+
+        有一个属性叫render方法，是将组件中的虚拟dom输出的
+        所以我们将虚拟dom定义render方法中
+
+        Render 的返回值是虚拟dom树
+        作用域是组件当前的对象
+
+        通常将组件渲染到页面中，需要先把组件转化为
+        虚拟dom,要调用createElement()方法转化
+
+
+        JSX语法
+            解决创建一个虚拟dom成本过大的问题
+            Jsx语法就是让我们用书写html中元素标签的
+            方式来定义一个虚拟dom，在html中怎么书写
+            元素，我们就怎么书写虚拟dom元素
+
+配置文件
+-.babelrc 配置babel babel的主要作用就是用来编译；把不支持的编译成支持的
+    -为了编译ES6  babel-loader(让JS文件可以运行)
+    -要使用babel需要下载:
+    babel-cli babel-core
+    babel-preset-es2015(编译ES6)
+    babel-preset-strage-0(让当前JS文件支持箭头函数)
+
+    箭头函数与普通的函数的最主要的区别在于this的指向
+    箭头函数保证this的指向，而普通函数不能
+    babel-preset-react
+
+
+-.gitignore 把项目用github管理的时候，忽略哪些文件上传
+
+-package.josn 项目简介
+
+-webpack.config.js 配置webpack
+    -webpack 本地运行，只能在自己电脑看
+    -webpack-dev-server  在服务器上跑
+
+项目初始化
+    1.-git init git可以操作的本地仓库
+        +开发过程中，要通过git的工作流，把我们的项目传到远程的github上去：
+        git add.
+        git commit -m"注释"
+        git push origin master 默认提交到master分支上去
+
+    2.-npm init -y 快速创建 package.json
+
+
+
+README.md项目介绍
+
+--save     上线时也要用的包
+--save-dev 开发始所用的包
+
+
+start 服务器上跑项目，自动编译
+
+build 是本地跑项目，要手动编译
+
+npm start
+npm build
+
+
+jsx语法：js+xml语法的混合
+
+类是ClassName
+注释：{/**/}
+<label for=""> 里面的for要写成htmlfor
+
+自身状态的改变，导致数据的改变 state
+设置状态
+state在constructor里面写
+this.state={
+    login:true
+}
+更改状态：
+this.setState({
+    this.state({
+        login:false
+    })
+})
+
+react虚拟DOM
+
+什么是虚拟DOM（Virtual DOM）
+虚拟DOM保存了真实DOM的层次关系和一些基本属性，与真实DOM一一对应。虚拟DOM的工作原理是：数据 -> 全新的虚拟DOM -> 与上一个状态的虚拟DOM进行diff算法比较，得到一个Patch -> 把这个Patch打到浏览器的DOM上。所以虚拟DOM叫的挺高端，其实就有点类似DocumentFragment，把多次DOM操作做一个批处理。
+什么是diff算法？
+现在前端框架比的是算法。diff算法说白了就是比较两个文件不同的算法。
+比较前后两个状态虚拟DOM的diff算法，可以简单分为三部分，我总结了三句话
+虚拟DOM树同一位置不同类型（标签不同）的节点：删除前一状态节点，插入后一状态节点，哪怕节点有子节点也这样做；
+虚拟DOM树同一位置相同类型但个别属性不同的节点，对前一状态节点进行属性重设；
+列表节点（就是我们用循环创建的类似Array的节点），如果没有unique key（没有控制台会报警告的）就按照前面两种方式解决，如果有unique key就找到key相应的位置插入节点。
+虚拟DOM快在哪里？
+js计算肯定要比DOM操作快啊，每次DOM操作都很有可能引起回流(Reflow)和重绘(Repaint)啊。当然浏览器也不傻，不是你每次操作DOM浏览器都重绘一次，一般浏览器会按照时间或次数间隔进行DOM操作的批处理。
+到底是浏览器优化后的DOM批处理快，还是React的虚拟DOM+优化diff算法快？这个不清楚，根据博客上内容，React的优化更人性化、也更快。速度快肯定是虚拟DOM的一个优点；
+主要是主动权不同：浏览器对DOM操作批处理的主动权不在前端人员手中，React将这种批处理的时机选择交到了我们手中，看我们什么时候想render页面。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

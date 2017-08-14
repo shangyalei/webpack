@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<div id="app"></div>
+
+
+
+
+<script src="lib/react.min.js"></script>
+<script src="lib/react-dom.min.js"></script>
+<script>
+//    console.log(React);
+//    console.log(React-dom);
+//创建虚拟dom h1
+    var h1 = React.createElement('h1',{
+        title:'这是一个标题'
+    },'爱创课堂');
+
+
+//将虚拟dom渲染到页面中
+    ReactDOM.render(h1,document.getElementById('app'));
+
+
+
+//console.log(h1);
+
+
+
+</script>
+</body>
+</html>

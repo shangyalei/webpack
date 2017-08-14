@@ -1,0 +1,126 @@
+webpack 自动化配置
+
+开发时所需要的包
+1.关于webpack 的包
+cnpm i --save-dev webpack webpack-dev-server
+
+2.关于vue编译的包
+cnpm i --save-dev vue-loader  vue-template-compiler
+--  babel:
+cnpm i --save-dev babel-core  babel-cli   babel-loader
+
+cnpm i --save-dev babel-preset-es2015     babel-preset-stage-0
+
+cnpm i --save-dev style-loader  css-loader
+
+自动引入JS文件到html中
+cnpm i --save-dev html-webpack-plugin
+
+webpack3.0需要插件
+cnpm i --save-dev babel-plugin-transform-es2015-block-scoping
+
+产品上线后需要的相关类库
+--vue上线后的产品所需：
+cnpm i  vue vue-router   --save
+
+
+开发所用的包下载的时候用: cnpm i --save-dev+包名
+上线后所需的包下载的时候用：cnpm i --save+包名
+
+.gitignore 上传服务器需要忽略的文件
+
+
+package.json
+调试
+npm start  编译  运行 调试
+
+最后上线--打包上传
+npm run build  命令 就会出现一个dist的文件夹
+
+添加less
+
+cnpm i less less-loader --save-dev
+
+
+子组件：
+一个.vue的文件包含：template style script
+scoped  样式私有化
+
+less
+设置：lang="less" rel="stylesheet/less"
+
+下载 less less-loader
+
+
+animated
+
+cnpm i animate.css --save
+
+
+vue里面的动画
+--transition 组件  让谁动  就用transition把谁包裹了
+    +使用style添加
+    动画进入
+    enter-active-class="animated faddeIn"
+    动画离开
+    leave-active-class="animated fadeOut"
+
+数据交互使用vue-resource
+
+cnpm i --save-dev vue-resource
+
+cnpm i axios --save-dev
+
+
+数据请求
+--vue-resource  通过Vue.use(VueResource)注册公共组件;
+    +this.$http.get();
+    +this.$http.post();
+    +this.$http.jsonp();
+--axios不能使用Vue.use来注册公共注册，必须使用Vue.prototype.$http=axios;
+
+
+
+
+UI框架 mint-ui
+
+cnpm i mint-ui --save
+
+// 安装
+# Vue 1.x
+npm install mint-ui@1 -S
+# Vue 2.0
+npm install mint-ui -S
+
+// 引入全部组件
+import Vue from 'vue';
+import Mint from 'mint-ui';
+Vue.use(Mint);
+// 按需引入部分组件
+import { Cell, Checklist } from 'minu-ui';
+Vue.component(Cell.name, Cell);
+Vue.component(Checklist.name, Checklist);
+
+
+
+npm init -y 快速创建项目
+
+路由是 vue-router
+数据请求 vue-resource
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
